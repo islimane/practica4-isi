@@ -22,3 +22,5 @@ accounts-password
 accounts-ui
 themeteorchef:jquery-validation
 check
+sanjo:jasmine
+velocity:html-reporter

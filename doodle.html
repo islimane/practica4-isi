@@ -1,0 +1,109 @@
+<template name="layout">
+    <h1>Doodle</h1>
+    <hr />
+    {{> navigation}}
+    <hr />
+    {{> yield}}
+    <hr />
+    <p>
+    	Copyright &copy; Doodle, by Ismael Slimane Zubillaga.
+    </p>
+</template>
+
+<template name="navigation">
+    <ul>
+        <li><a href="{{pathFor route='home'}}">Home</a></li>
+        <li><a href="{{pathFor route='pollForm'}}">Create a new Poll</a></li>
+        <li><a href="{{pathFor route='polls'}}">Polls</a></li>
+    </ul>
+</template>
+
+<template name="home">
+    <p>Welcome to the Doodle application.</p>
+</template>
+
+<template name="register">
+    <h2>Register</h2>
+</template>
+
+<template name="pollForm">
+    <form>
+    	<p>
+    		<span>Title: </span>
+        	<input type="text" name="eventName" placeholder="Title here...">
+        </p>
+        <p>
+    		<span>User name: </span>
+        	<input type="text" name="userName" placeholder="User name here...">
+        </p>
+        <p>
+    		<span>Dates: </span>
+			<input type="text" class="form-control" id="my-datepicker" placeholder="Day here...">
+			<input type="text" class="form-control" name="time" placeholder="Time here...">
+			<a id="addDate" href="">
+			Add date
+			</a>
+        </p>
+        <div id="dates">
+        	<table style="width:100%" id="datesBoard"></table>
+        </div>
+        <p>
+	        <input type="submit" value="Create event">
+    	</p>
+    </form>
+</template>
+
+<template name="polls">
+	<ul>
+        {{#each poll}}
+			<li>
+				<a href="/poll/{{_id}}">{{this.title}}</a>
+			</li>
+		{{/each}}
+    </ul>
+</template>
+
+<template name="pollPage">
+    <h3>{{this.title}}</h3>
+	<h4>Created by: {{this.createdBy}}</h4>
+	<table style="width:100%">
+		<tr>
+			<th>Name</th>
+			{{#each date}}
+				<th>
+					<p>{{this.day}}</p>
+					<p>{{this.time}}</p>
+				</th>
+			{{/each}}
+		</tr>
+		<!--{{#each user}}
+			<tr>
+				<td class="user {{selectedClass}}">{{name}}</td>
+				{{#each this.dates}}
+					<td>
+						{{#if this}}
+							<span class="glyphicon glyphicon-thumbs-up"></span>
+						{{else}}
+							<span class="glyphicon glyphicon-thumbs-down"></span>
+						{{/if}}
+					</td>
+				{{/each}}	
+			</tr>
+		{{/each}}-->
+		<tr>
+			{{> addUserForm}}
+		</tr>
+	</table>
+	<input type="submit" value="Add user">
+</template>
+
+<template name="addUserForm">
+    <td>
+    	<input type="text" name="userName" id="userName">
+    </td>
+	<!--{{#each date}}
+		<td>
+			<input type="checkbox" name="date" class="dateCheckbox">
+		</td>
+	{{/each}}-->
+</template>
