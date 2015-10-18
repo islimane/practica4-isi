@@ -12,7 +12,8 @@ function generateRandomTasks(listName){
             createdAt: new Date(),
             createdBy: list.createdBy,
             listId: list._id
-      }
+        }
+        Todos.insert(data);
     }
 }
 
