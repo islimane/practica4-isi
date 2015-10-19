@@ -22,6 +22,6 @@ describe("List adding", function () {
       expect(Lists.findOne({name: listName, 
                             createdBy: userId})).toBeTruthy();
       done();
-    }, 100);
+    }, 25);
   });
 });
