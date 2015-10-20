@@ -1,17 +1,10 @@
 
 describe("Making a new register ", function () {
 
-  beforeAll(function(done){
-  	$("a.register").click();
-  	Meteor.logout(function(){
-      Tracker.afterFlush(done);
-    });
-  });
-
-  afterEach(function(done){
-    Meteor.logout(function(){
-      Tracker.afterFlush(done);
-    });
+  beforeEach(function(done){
+ 	 Meteor.logout(function(){
+ 	 	Tracker.afterFlush(done);
+ 	 });
   });
 
  it('should be able to find home anchor' , function(){
@@ -24,40 +17,51 @@ describe("Making a new register ", function () {
 
  describe ( " Register form" , function () {
 
- 	$("a.home").click();
- 	$("a.register").click();
+		$("a.register").click();
+		
+		it("should be able to find email input", function(){
+			setTimeout(function () {
+				expect($("form.register input.email").length).toBeGreaterThan(0);
+				done() ;
+			}, 500);
+		});
 
-    it("should be able to find email input", function(){
-    	expect($("form.register input.email").length).toBeGreaterThan(0);
-    });
-
-    it("should be able to find password input", function(){
-    	expect($("form.register input.password").length).toBeGreaterThan(0);
-    });
+		it("should be able to find password input", function(){
+			setTimeout(function () {
+				expect($("form.register input.password").length).toBeGreaterThan(0);
+				done() ;
+			}, 500);
+		});
+});
     
-
- });
 
  describe("Registering a new user" , function() {
 
-	it("should the user be registered and logged in", function (done){
+	it ("Should the user be registered and logged in" , function() {
+		$("a.register").click();
+		
+		setTimeout(function () {
 
-	    $("a.register").click();
+			var mail = "doomie@gmail.com" ;
+			var pass = "1234567890" ;
 
-		var mail = "doomie@gmail.com" ;
-		var pass = "1234567890" ;
+			$("form.register input.email").val(mail);
+			$("form.register input.password").val(pass);
 
-		$("form.register input.email").val(mail);
-		$("form.register input.password").val(pass);
+			spyOn(Accounts, "createUser").and.callThrough() ;
 
-		spyOn(Accounts, "createUser").and.callThrough() ;
+			$("form.register").submit();
 
-		$("form.register").submit();
+			setTimeout(function () {
+				expect(Accounts.createUser).toHaveBeenCalled();
+				done() ;
+			}, 500);
 
-		expect(Accounts.createUser).toHaveBeenCalled();
-		done() ;
+			done() ;
+
+		}, 500);
+
 	});
-	
 
 });
 
